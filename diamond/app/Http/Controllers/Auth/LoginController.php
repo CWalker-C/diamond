@@ -81,7 +81,8 @@ class LoginController extends Controller
                 $user = DB::table('users')
                     ->where('mobile', request('mobile'))
                     ->first();
-                $token = Token::createToken($user->id, $user->mobile);
+                $tokenObject = new Token();
+                $token = $tokenObject->createToken($user->id, $user->mobile);
 //                var_dump($token);
                 return response()->json([
                     'code' => 2000,

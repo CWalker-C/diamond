@@ -65,15 +65,13 @@ return [
 
         'qiniu' => [
             'driver'  => 'qiniu',
-            'domains' => [
-                'default'   => 'xxxxx', // 你的七牛域名
-                'https'     => 'xxxxx',         // 你的HTTPS域名
-                'custom'    => 'diamond.creatshare.com',     // 你的自定义域名
+            'domains'   => [
+                'default'   => 'pfpeyrylm.bkt.clouddn.com',
             ],
+//            'domains'   => 'diamond.creatshare.com',
             'access_key'=> 'odNqqrGJhQS0ErPruL28TTyNNj6uj02fkhEtkNMh',  // AccessKey
             'secret_key'=> 'oX139cFGH1KvcW2V0owWqVtnTtKSz0023JVRkd-W',  // SecretKey
             'bucket'    => 'diamond',  // Bucket名字
-            'notify_url'=> '',  // 持久化处理回调地址
         ]
     ],
 

@@ -46,7 +46,7 @@ class SendMessageController extends Controller
     public function sendMessage(Request $request)
     {
         if ($request->isMethod('post')) {
-    /*        $validator = $this->validator($request->all());
+            $validator = $this->validator($request->all());
             if ($validator->fails()) {
                 $errors = $validator->errors()->first();
                 if ($errors == "数据不能为空") {
@@ -103,8 +103,7 @@ class SendMessageController extends Controller
                     'msg'  => '未知错误'
                 ]);
             }
-            return ;*/
-            return 'hello';
+            return ;
         }
     }
 
