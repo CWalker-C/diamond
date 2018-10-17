@@ -5,9 +5,27 @@ namespace App\Http\Controllers\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use zgldh\QiniuStorage\QiniuStorage;
+use Illuminate\Support\Facades\Validator;
 
 class UploadPictureController extends Controller
 {
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $message = [
+            'required' => '数据不能为空'
+        ];
+
+        return Validator::make($data, [
+            'image' => 'required'
+        ], $message);
+    }
+
     /**
      * 使用七牛云上传文件
      *
@@ -16,6 +34,19 @@ class UploadPictureController extends Controller
      */
     public function uploadPicture(Request $request)
     {
+        $validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            $errors = $validator->errors()->first();
+            if ($errors == "数据不能为空") {
+                $code = 1001;
+            } else {
+                $code = 5001;
+            }
+            return response()->json([
+                'code' => $code,
+                'msg' => $errors
+            ]);
+        }
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -23,7 +54,8 @@ class UploadPictureController extends Controller
             if (!in_array($extension, $filetype)) {
                 return response()->json([
                     'code'  => 3001,
-                    'msg'   => '文件不是图片'
+                    'msg'   => $file,
+//                    'msg'   => '文件不是图片'
                 ]);
             }
             $upload = new UploadController();
@@ -35,7 +67,8 @@ class UploadPictureController extends Controller
                 return response()->json([
                     'code'  => 2000,
                     'data'  => [
-                        'imageUrl' => $imgurl
+                        'imageUrl' => $imgurl,
+
                     ]
                 ]);
             }

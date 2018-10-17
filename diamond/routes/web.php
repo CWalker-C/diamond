@@ -21,11 +21,11 @@ Route::post('user/getcode', 'ShortMessage\SendMessageController@sendMessage');
 Route::post('user/register', 'Auth\RegisterController@register');
 // 用户登录
 Route::post('user/login', 'Auth\LoginController@login');
-
+// 用户上传图片
 Route::post('/upload', 'Upload\UploadPictureController@uploadPicture');
 
 // 用户添加卡包
-Route::post('package/add', 'Package\AddPackageController@addPackage')->middleware('auth');
+Route::post('package/add', 'Package\AddPackageController@addPackage');
 // 用户删除卡包
 Route::post('package/delete', 'Package\RemovePackageController@removePackage')->middleware('auth');
 // 用户更新卡包

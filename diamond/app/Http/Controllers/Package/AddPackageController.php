@@ -25,7 +25,7 @@ class AddPackageController extends Controller
         ];
 
         return Validator::make($data, [
-            'name' => 'required|string',
+            'description' => 'required|string',
             'cover' => 'required|string',
             'type' => 'required|numeric',
         ], $message);
@@ -50,8 +50,8 @@ class AddPackageController extends Controller
     public function addPackage(Request $request)
     {
         if ($request->isMethod('post')) {
-            $tokenObject = new Token();
-            $userId = $tokenObject->getUserId();
+//            $tokenObject = new Token();
+////            $userId = $tokenObject->getUserId();
             $validator = $this->validator($request->all());
             if ($validator->fails()) {
                 $errors = $validator->errors()->first();
@@ -67,8 +67,9 @@ class AddPackageController extends Controller
                     'msg' => $errors
                 ]);
             }
-            $data['user_id'] = $userId;
-            $data['name'] = request('name');
+//            $data['user_id'] = $userId;
+            $data['user_id'] = 1;
+            $data['description'] = request('description');
             $data['cover'] = request('cover');
             $data['type'] = request('type');
             $data['card_num'] = 0;
@@ -79,7 +80,7 @@ class AddPackageController extends Controller
                     'code'  => 2000,
                     'data'  => [
                         'id'    => $ret->getAttribute('id'),
-                        'name'    => $ret->getAttribute('name'),
+                        'description'    => $ret->getAttribute('description'),
                         'cover'    => $ret->getAttribute('cover'),
                         'type'    => $ret->getAttribute('type'),
                         'userId'    => $ret->getAttribute('user_id'),
